@@ -5,7 +5,8 @@ import PlacesContext from './PlacesContext';
 import { placesReducer } from './reducer/PlacesReducer';
 import { SET_USER_LOCATION } from './reducer/actionsTypes';
 //Helpers:
-import { getUserLocation, MENSAJE_ERROR_GEOLOCATION } from '../../helpers';
+import { ERRORS, getUserLocation, MENSAJE_ERROR_GEOLOCATION } from '../../helpers';
+import { searchApi } from '../../apis';
 
 interface PlacesProviderProps {
     children: React.ReactNode;
@@ -38,9 +39,29 @@ const PlacesProviders = ({ children }: PlacesProviderProps) => {
             });
     }, []);
 
+    const fetchPlaces = async (query: string): Promise<any> => {
+        if (query.length === 0) return [];
+
+        if(!placesState.userLocation) throw new Error(ERRORS.NO_USER_LOCATION);
+
+        try {
+            const response = await searchApi(`/${query}.json`, {
+                params: {
+                    proximity: placesState.userLocation.join(',')
+                }
+            });
+
+            console.log({ response });
+            
+        } catch (error) {
+            console.error({error});
+        }
+    }
+
     return (
         <PlacesContext.Provider value={{
-            ...placesState
+            ...placesState,
+            fetchPlaces
         }}>
             {children}
         </PlacesContext.Provider>

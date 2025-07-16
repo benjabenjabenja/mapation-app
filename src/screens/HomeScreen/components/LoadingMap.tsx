@@ -1,7 +1,8 @@
 import React from 'react'
+//Styled:
 import styled, { keyframes } from 'styled-components';
 //Helpers:
-import { HOME_SCREEN } from '../../../helpers/const';
+import { HOME_SCREEN } from '../../../helpers';
 
 const fadeAnimation = keyframes`
     from {

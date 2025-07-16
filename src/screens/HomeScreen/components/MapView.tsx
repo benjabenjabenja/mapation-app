@@ -6,12 +6,12 @@ import { LoadingMap } from './LoadingMap';
 //Styled:
 import styled from 'styled-components';
 //Helpers:
-import { HOME_SCREEN } from '../../../helpers';
+import { COLORS, ERRORS, HOME_SCREEN } from '../../../helpers';
 //Mapbox:
 import mapboxgl from 'mapbox-gl';
 
 const DivStyled = styled.div`
-    background-color: lightred;
+    background-color: ${COLORS.BACKGROUND};
     height: 100vh;
     left: 0;
     padding: .8rem;
@@ -28,30 +28,37 @@ export const MapView: React.FC = () => {
 
     useLayoutEffect(() => {
         if (!isLoading) {
-
+            
+            console.log({
+                userLocation
+            });
+            
             const options: mapboxgl.MapboxOptions = {
                 container: mapDiv.current!,
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: userLocation,
-                zoom: 14
+                zoom: HOME_SCREEN.MAP_VIEW.ZOOM_DEFAULT
             }
-
+            
             const map = new mapboxgl.Map(options);
-
+            
             if (map) setMap(map);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
 
-    if(isLoading) return <LoadingMap />;
+    if (isLoading) return (
+        <LoadingMap />
+    );
 
-    if(!userLocation) return <h3>{HOME_SCREEN.MAP_VIEW.ERROR_GEOLOCATION}</h3>;
+    if (!userLocation) return (
+        <DivStyled className='d-flex justify-content-center align-items-center'>
+            <h3>{ERRORS.NO_USER_LOCATION}</h3>
+        </DivStyled>
+    );
 
     return (
-        <DivStyled ref={mapDiv}>
-            <h3>
-                {JSON.stringify(userLocation)}
-            </h3>
-        </DivStyled>
+        <DivStyled ref={mapDiv} />
     );
 }
 

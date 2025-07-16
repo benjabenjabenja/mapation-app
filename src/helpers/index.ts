@@ -5,5 +5,12 @@ export { getUserLocation } from './getUserLocation';
 export {
     MENSAJE_NO_GEOLOCATION,
     MENSAJE_ERROR_GEOLOCATION,
-    HOME_SCREEN
+    HOME_SCREEN,
+    BUTTON_LOCATION,
+    MUTATION_APP,
+    SEARCH_API,
+    ERRORS
 } from './const';
+
+//Enums:
+export { InputTypes, COLORS } from './enums';
