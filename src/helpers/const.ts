@@ -24,6 +24,19 @@ export const HOME_SCREEN = {
     }
 }
 
+export const SEARCH_RESULTS = {
+    NOMBRE_LUGAR: 'Nombre del lugar',
+    LOADING: {
+        TITLE: 'Buscando',
+        SUBMESSAGE: 'Espere por favor...'
+    },
+    DIRECTIONS: 'Direcciones'
+}
+
+export const INPUT_SEARCH = {
+    PLACEHOLDER: 'Buscar...'
+}
+
 export const BUTTON_LOCATION = {
     TEXT: 'Mi ubicación'
 }

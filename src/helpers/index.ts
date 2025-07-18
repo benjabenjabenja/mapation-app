@@ -9,8 +9,10 @@ export {
     BUTTON_LOCATION,
     MUTATION_APP,
     SEARCH_API,
-    ERRORS
+    ERRORS,
+    SEARCH_RESULTS,
+    INPUT_SEARCH
 } from './const';
 
 //Enums:
-export { InputTypes, COLORS } from './enums';
+export { InputTypes, COLORS, SYMBOLS } from './enums';

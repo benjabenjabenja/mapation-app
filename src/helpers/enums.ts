@@ -18,3 +18,18 @@ export enum InputTypes {
     DATETIME = 'datetime',
     DATETIME_LOCAL = 'datetime-local',
 }
+
+export enum SYMBOLS {
+    DOT = '.',
+    COMMA = ',',
+    SPACE = ' ',
+    MINUS = '-',
+    UNDERSCORE = '_',
+    SLASH = '/',
+    BACKSLASH = '\\',
+    PIPE = '|',
+    COLON = ':',
+    SEMICOLON = ';',
+    EQUAL = '=',
+    EMPTY = ''
+}

@@ -2,12 +2,15 @@ import React, { useContext, useEffect } from 'react'
 //Styled:
 import styled from 'styled-components'
 //Helpers:
-import { HOME_SCREEN, InputTypes, COLORS } from '../../helpers';
+import { HOME_SCREEN, InputTypes, COLORS, INPUT_SEARCH } from '../../helpers';
 //Hooks:
 import { useDebounce } from '../../hooks/useDebounce';
 //Context:
 import { PlacesContext } from '../../context';
+//Components:
+import SearchResults from './SearchResults';
 
+/* INPUT SEARCH */
 const InputStyled = styled.input`
     background-color: #fff;
     border-radius: 1rem;
@@ -44,14 +47,20 @@ export const InputSearch: React.FC = () => {
         }
         debounce(callback);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debounce, value]);
+    }, [value]);
 
     return (
-        <InputStyled
-            type={InputTypes.SEARCH}
-            placeholder="Buscar..."
-            onChange={onInputChange}
-        />
+        <>
+            {/* INPUT SEARCH */}
+            <InputStyled
+                type={InputTypes.SEARCH}
+                placeholder={INPUT_SEARCH.PLACEHOLDER}
+                onChange={onInputChange}
+            />
+
+            {/* SEARCH RESULTS */}
+            <SearchResults />
+        </>
     );
 }
 

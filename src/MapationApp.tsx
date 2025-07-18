@@ -17,7 +17,7 @@ const MapationApp: React.FC = () => {
         <PlacesProvider>
             <MapProvider>
                 <MainStyled className='d-flex flex-column'>
-                    <h1>{MUTATION_APP.TITLE}</h1>
+                   {/*  <h1>{MUTATION_APP.TITLE}</h1> */}
                     <HomeScreen />
                 </MainStyled>
             </MapProvider>

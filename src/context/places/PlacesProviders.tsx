@@ -3,10 +3,12 @@ import React, { useEffect, useReducer } from 'react';
 import PlacesContext from './PlacesContext';
 //Reducer:
 import { placesReducer } from './reducer/PlacesReducer';
-import { SET_USER_LOCATION } from './reducer/actionsTypes';
+import { SET_LOADING_PLACES, SET_PLACES, SET_USER_LOCATION } from './reducer/actionsTypes';
 //Helpers:
 import { ERRORS, getUserLocation, MENSAJE_ERROR_GEOLOCATION } from '../../helpers';
 import { searchApi } from '../../apis';
+//Entitys:
+import { Feature } from '../../entitys';
 
 interface PlacesProviderProps {
     children: React.ReactNode;
@@ -15,11 +17,15 @@ interface PlacesProviderProps {
 export interface PlacesState {
     isLoading: boolean;
     userLocation?: [number, number];
+    isLoadingPlaces: boolean;
+    places: Feature[];
 }
 
 const INITIAL_STATE: PlacesState = {
     isLoading: true,
     userLocation: undefined,
+    isLoadingPlaces: false,
+    places: []
 }
 
 const PlacesProviders = ({ children }: PlacesProviderProps) => {
@@ -39,10 +45,14 @@ const PlacesProviders = ({ children }: PlacesProviderProps) => {
             });
     }, []);
 
-    const fetchPlaces = async (query: string): Promise<any> => {
+    const fetchPlaces = async (query: string): Promise<Feature[]> => {
         if (query.length === 0) return [];
 
-        if(!placesState.userLocation) throw new Error(ERRORS.NO_USER_LOCATION);
+        if (!placesState.userLocation) throw new Error(ERRORS.NO_USER_LOCATION);
+        
+        dispatch({
+            type: SET_LOADING_PLACES
+        });
 
         try {
             const response = await searchApi(`/${query}.json`, {
@@ -51,10 +61,19 @@ const PlacesProviders = ({ children }: PlacesProviderProps) => {
                 }
             });
 
-            console.log({ response });
+            const { data: { features } } = response;
             
+            console.log({ features });
+
+            dispatch({
+                type: SET_PLACES,
+                payload: features
+            });
+
+            return features || [];
         } catch (error) {
             console.error({error});
+            return [];
         }
     }
 

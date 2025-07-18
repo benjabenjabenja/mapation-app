@@ -1,1 +1,3 @@
 export const SET_USER_LOCATION = 'SET_USER_LOCATION';
+export const SET_PLACES = 'SET_PLACES';
+export const SET_LOADING_PLACES = 'SET_LOADING_PLACES';
